@@ -1,11 +1,5 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use App\Models\Blog;
-use App\Models\Category;
-use Illuminate\Http\Request;
-
 class BlogController extends Controller
 {
     /**
@@ -31,7 +25,7 @@ class BlogController extends Controller
         }
         
         $categories = Category::all();
-        return view('blogs.index', compact('blogs', 'categories'));
+        view('blogs.index', compact('blogs', 'categories'));
     }
 
     /**
@@ -39,14 +33,14 @@ class BlogController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('blogs.create', compact('categories'));
+        $categories = Category::all;
+        view('blogs.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store($request)
     {
         $request->validate([
             'title' => 'required',
@@ -61,7 +55,7 @@ class BlogController extends Controller
         $blog->category_id = $request->category;
         $blog->save();
 
-        return redirect()->route('blogs.index');
+        redirect()->route('blog.index');
     }
 
     /**
@@ -70,7 +64,7 @@ class BlogController extends Controller
     public function show(string $id)
     {
         $blog = Blog::where('slug', $id)->first();
-        return view('blogs.show', compact('blog'));
+        redirect('blogs.show', compact('blog'));
     }
 
     /**
@@ -80,13 +74,13 @@ class BlogController extends Controller
     {
         $blog = Blog::where('slug', $id)->first();
         $categories = Category::all();
-        return view('blogs.edit', compact('blog', 'categories'));
+        view('blogs.edit', compact('blog', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update($request, string $id)
     {
         $request->validate([
             'title' => 'required',
@@ -101,7 +95,7 @@ class BlogController extends Controller
         $blog->category_id = $request->category;
         $blog->save();
 
-        return redirect()->route('blogs.index');
+        redirect()->route('blogs.index');
     }
 
     /**
@@ -111,6 +105,6 @@ class BlogController extends Controller
     {
         $blog = Blog::where('slug', $id)->first();
         $blog->delete();
-        return redirect()->route('blogs.index');
+        redirect()->route('blogs.index');
     }
 }

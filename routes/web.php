@@ -8,5 +8,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
-Route::resource('blogs', BlogController::class);
+Rouge::get('/category/create', [CategoryController::class, 'create']);
+Route::get('/blogs', [BlogController::class, 'index']);

@@ -1,5 +1,3 @@
-@extends('layouts.main')
-
 @section('title', 'Edit Blog - ' . $blog->title)
 
 @section('styles')
@@ -51,7 +49,7 @@
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
 
-        <a href="{{ route('blogs.index') }}" class="btn btn-secondary">Back</a>
+        <a href="blogs.index" class="btn btn-secondary">Back</a>
         <button type="submit" class="btn btn-primary">Submit</button>
 
     </form>
