@@ -1,5 +1,10 @@
 <?php
 
+namespace App\Http\Controllers;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Models\Blog;
+
 class BlogController extends Controller
 {
     /**
@@ -25,7 +30,7 @@ class BlogController extends Controller
         }
         
         $categories = Category::all();
-        view('blogs.index', compact('blogs', 'categories'));
+        return view('blogs.index', compact('blogs', 'categories'));
     }
 
     /**
@@ -33,15 +38,16 @@ class BlogController extends Controller
      */
     public function create()
     {
-        $categories = Category::all;
-        view('blogs.create', compact('categories'));
+        $categories = Category::all();
+        return view('blogs.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store($request)
+    public function store(Request $request)
     {
+        // perhatikan ini
         $request->validate([
             'title' => 'required',
             'content' => 'required',
@@ -55,16 +61,17 @@ class BlogController extends Controller
         $blog->category_id = $request->category;
         $blog->save();
 
-        redirect()->route('blog.index');
+        return redirect('/blogs');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug)
     {
-        $blog = Blog::where('slug', $id)->first();
-        redirect('blogs.show', compact('blog'));
+
+        $blog = Blog::where('slug', $slug)->first();
+        return view('blogs.show', compact('blog'));
     }
 
     /**
@@ -72,15 +79,15 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
-        $blog = Blog::where('slug', $id)->first();
+        $blog = Blog::where('id', $id)->first();
         $categories = Category::all();
-        view('blogs.edit', compact('blog', 'categories'));
+        return view('blogs.edit', compact('blog', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update($request, string $id)
+    public function update(Request $request, string $id)
     {
         $request->validate([
             'title' => 'required',
@@ -95,7 +102,7 @@ class BlogController extends Controller
         $blog->category_id = $request->category;
         $blog->save();
 
-        redirect()->route('blogs.index');
+        return redirect(to: '/blogs');
     }
 
     /**
@@ -103,8 +110,9 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        $blog = Blog::where('slug', $id)->first();
+        $blog = Blog::findOrFail($id);
         $blog->delete();
-        redirect()->route('blogs.index');
+        return redirect('/blogs');
     }
+    
 }

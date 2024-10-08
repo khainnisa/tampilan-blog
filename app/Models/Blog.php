@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -8,15 +8,16 @@ class Blog extends Model
 {
     use HasFactory;
 
-    protected $table = 'blog';
+    protected $table = 'blogs';
     protected $primaryKey = 'id';
 
-    protected $fillable = [
+    public $fillable = [
         'title',
         'slug',
         'content',
         'category_id'
     ];
+
 
     protected function casts()
     {

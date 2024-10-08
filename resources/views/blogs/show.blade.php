@@ -18,6 +18,7 @@
         <p>{{ $blog->content }}</p>
         <p><strong>Category:</strong> {{ $blog->category->name }}</p>
 
-        <a href="{{ route('blogs.index') }}" class="btn btn-secondary">Back</a>
+        {{-- tombol kembali --}}
+        <a href="/blogs" class="btn btn-secondary">Back</a>
     </div>
 @endsection

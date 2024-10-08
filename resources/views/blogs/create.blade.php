@@ -1,3 +1,4 @@
+@extends('layouts.main')
 @section('title', 'Create Blog')
 
 @section('styles')
@@ -13,10 +14,13 @@
     <div class="header-title mt-5">
         <h1>Create a New Blog Post</h1>
     </div>
-    <form action="blogs.store">
+    {{-- aksi store --}}
+    <form method="post" action="{{ route('blogs.store') }}">
+        @csrf
         <div class="form-group">
             <label for="judul">Judul</label>
-            <input type="text" class="form-control" id="judul" name="judul" required>
+            {{-- perhatikan title di sini awalnya judul --}}
+            <input type="text" class="form-control" id="title" name="title" required>
         </div>
         @error('judul')
             <div class="alert alert-danger">{{ $message }}</div>
@@ -32,7 +36,8 @@
 
         <div class="form-group my-4">
             <label for="category">Category</label>
-            <select name="categry" class="form-select" id="category" required>
+            {{-- dan disini --}}
+            <select name="category" class="form-select" id="category" required>
                 <option value="">Select Category</option>
                 @foreach ($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -43,7 +48,9 @@
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
 
-        <a href="blogs.index" class="btn btn-secondary">Back</a>
+        {{-- Tombol back, sesuaiin routes nya--}}
+        <a href="/blogs" class="btn btn-secondary">Back</a>
+        {{-- submit --}}
         <button type="submit" class="btn btn-primary">Submit</button>
 
     </form>

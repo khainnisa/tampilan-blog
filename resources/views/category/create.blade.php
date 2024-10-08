@@ -15,7 +15,7 @@
     <div class="header-title mt-5">
         <h1>Create a New Category</h1>
     </div>
-    <form action="category.store" method="POST">
+    <form action="{{ route('category.store') }}" method="POST">
         @csrf
         <div class="form-group">
             <label for="name">Name</label>
@@ -33,7 +33,9 @@
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
 
-        <a href="category.index" class="btn btn-secondary">Back</a>
+        {{-- Tombol back ke category --}}
+        <a href="/category" class="btn btn-secondary">Back</a>
+        {{-- Tombol submit ke store --}}
         <button type="submit" class="btn btn-primary">Submit</button>
 
     </form>
